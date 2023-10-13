@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "08.MagicSum", "08.MagicSum\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "09.KaminoFactory", "09.KaminoFactory\09.KaminoFactory.csproj", "{89ED4344-C3F1-4749-BD7E-1D8A431177BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "10.LadyBugs", "10.LadyBugs\10.LadyBugs.csproj", "{7ADBC71A-DCA2-4518-A85F-236639F9A31F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "10.LadyBugs", "10.LadyBugs\10.LadyBugs.csproj", "{7ADBC71A-DCA2-4518-A85F-236639F9A31F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
