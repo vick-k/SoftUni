@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Problem01", "Problem01\Problem01.csproj", "{880F9A90-49D8-4297-86DE-92041089A8EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Problem02", "Problem02\Problem02.csproj", "{D652EFCD-6235-467D-91BC-074D581E1272}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Problem03", "Problem03\Problem03.csproj", "{C6C39977-1693-4655-9F1C-4CF7DD823864}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{880F9A90-49D8-4297-86DE-92041089A8EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{880F9A90-49D8-4297-86DE-92041089A8EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{880F9A90-49D8-4297-86DE-92041089A8EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{880F9A90-49D8-4297-86DE-92041089A8EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D652EFCD-6235-467D-91BC-074D581E1272}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D652EFCD-6235-467D-91BC-074D581E1272}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D652EFCD-6235-467D-91BC-074D581E1272}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D652EFCD-6235-467D-91BC-074D581E1272}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6C39977-1693-4655-9F1C-4CF7DD823864}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6C39977-1693-4655-9F1C-4CF7DD823864}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6C39977-1693-4655-9F1C-4CF7DD823864}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6C39977-1693-4655-9F1C-4CF7DD823864}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {089672BF-20A2-431B-80C2-7CD85A3365F3}
+	EndGlobalSection
+EndGlobal
