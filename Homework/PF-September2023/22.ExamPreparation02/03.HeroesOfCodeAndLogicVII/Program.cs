@@ -16,7 +16,7 @@
                 string name = heroStats[0];
                 int health = int.Parse(heroStats[1]);
                 int mana = int.Parse(heroStats[2]);
-
+                
                 Hero hero = new Hero();
                 hero.Name = name;
                 hero.HealthPoints = health;
@@ -65,8 +65,8 @@
                         continue;
                     }
 
-                    Console.WriteLine($"{currentHero.Name} has been killed by {attacker}!");
                     heroesList.Remove(currentHero);
+                    Console.WriteLine($"{currentHero.Name} has been killed by {attacker}!");
                 }
                 else if (action == "Recharge")
                 {
