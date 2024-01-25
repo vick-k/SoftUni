@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading.Channels;
-
-namespace _05.FilterByAge
+﻿namespace _05.FilterByAge
 {
     internal class Program
     {
