@@ -1,102 +1,113 @@
-﻿using System.Reflection;
+﻿using System.Collections;
+using System.Reflection;
 using System.Text;
-using System.Text.Json;
 
 namespace Serializer
 {
     public class JSONSerializer
     {
-        public static void ToJSON<T>(T input)
+        public string ToJSON(object input)
         {
-            // ---------------------------------
-            // Variant 1: Using System.Text.Json
-            // ---------------------------------
-            //JsonSerializerOptions options = new() { WriteIndented = true };
-            //string jsonContent = JsonSerializer.Serialize(input, options);
+            StringBuilder sb = new();
+            SerializeInput(input, sb);
+            return sb.ToString();
+        }
 
-            //string fileName = $"../../../{input.GetType().Name}.json";
-            //File.WriteAllText(fileName, jsonContent);
+        private void SerializeInput(object input, StringBuilder sb)
+        {
+            if (input == null)
+            {
+                sb.Append("null");
+            }
+            else if (input is bool || IsNumeric(input))
+            {
+                sb.Append(input.ToString().ToLower());
+            }
+            else if (input is string)
+            {
+                sb.Append($"\"{input}\"");
+            }
+            else if (input is IDictionary dictionary)
+            {
+                SerializeDictionary(dictionary, sb);
+            }
+            else if (input is IEnumerable enumerable)
+            {
+                SerializeEnumerable(enumerable, sb);
+            }
+            else
+            {
+                SerializeObjectProperties(input, sb);
+            }
+        }
 
-
-
-            // ---------------------------------
-            // Variant 2: Using Reflection
-            // Note: This implementation will not work for properties of the type collection (array, list) or custom objects
-            // ---------------------------------
+        private void SerializeObjectProperties(object input, StringBuilder sb)
+        {
             Type type = input.GetType();
             PropertyInfo[] properties = type.GetProperties();
 
-            T clonedObj = (T)Activator.CreateInstance(type);
-
-            StringBuilder sb = new();
-            sb.AppendLine("{");
-            int counter = 0;
+            sb.Append('{');
+            bool isFirstProperty = true;
 
             foreach (PropertyInfo property in properties)
             {
-                var value = property.GetValue(input);
-                property.SetValue(clonedObj, value);
-
-                if (properties.Length - 1 > counter)
+                if (!isFirstProperty)
                 {
-                    // Booleans, numbers and null don't need to have quotes
-                    if (ValueTypeIsBoolOrNumberOrNull(value))
-                    {
-                        if (value == null)
-                        {
-                            sb.AppendLine($"  \"{property.Name}\": null,");
-                        }
-                        else
-                        {
-                            sb.AppendLine($"  \"{property.Name}\": {value.ToString().ToLower()},");
-                        }
-                    }
-                    else
-                    {
-                        sb.AppendLine($"  \"{property.Name}\": \"{value}\",");
-                    }
-                }
-                else // When it's the last property - enter here to get rig of the comma (,) after the last entry
-                {
-                    if (ValueTypeIsBoolOrNumberOrNull(value))
-                    {
-                        if (value == null)
-                        {
-                            sb.AppendLine($"  \"{property.Name}\": null");
-                        }
-                        else
-                        {
-                            sb.AppendLine($"  \"{property.Name}\": {value.ToString().ToLower()}");
-                        }
-                    }
-                    else
-                    {
-                        sb.AppendLine($"  \"{property.Name}\": \"{value}\"");
-                    }
+                    sb.Append(',');
                 }
 
-                counter++;
+                isFirstProperty = false;
+                sb.Append($"\"{property.Name}\"");
+                sb.Append(':');
+                SerializeInput(property.GetValue(input), sb);
             }
 
             sb.Append('}');
-
-            string fileName = $"../../../{input.GetType().Name}.json";
-            File.WriteAllText(fileName, sb.ToString());
         }
 
-        private static bool ValueTypeIsBoolOrNumberOrNull(object value)
+        private void SerializeEnumerable(IEnumerable input, StringBuilder sb)
         {
-            return value == null || double.TryParse(value.ToString(), out _) || bool.TryParse(value.ToString(), out _);
+            sb.Append('[');
+            bool isFirstEntry = true;
+
+            foreach (object item in input)
+            {
+                if (!isFirstEntry)
+                {
+                    sb.Append(',');
+                }
+
+                isFirstEntry = false;
+                SerializeInput(item, sb);
+            }
+
+            sb.Append(']');
         }
 
-        public static T FromJSON<T>(string fileName)
+        private void SerializeDictionary(IDictionary dictionary, StringBuilder sb)
         {
-            // Didn't find an "easy" way to implement deserialization using only Reflection so I'm using System.Text.Json
+            sb.Append('{');
+            bool isFirstEntry = true;
 
-            string jsonContent = File.ReadAllText($"../../../{fileName}");
-            var obj = JsonSerializer.Deserialize<T>(jsonContent);
+            foreach (DictionaryEntry entry in dictionary)
+            {
+                if (!isFirstEntry)
+                {
+                    sb.Append(',');
+                }
 
-            return obj;
+                isFirstEntry = false;
+                sb.Append($"\"{entry.Key.ToString()}\"");
+                sb.Append(':');
+                SerializeInput(entry.Value, sb);
+            }
+
+            sb.Append('}');
+        }
+
+        private bool IsNumeric(object input)
+        {
+            return double.TryParse(input.ToString(), out _);
         }
     }
 }
