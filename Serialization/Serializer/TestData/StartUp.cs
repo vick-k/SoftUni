@@ -1,11 +1,11 @@
-﻿namespace Serializer
+﻿namespace Serializer.TestData
 {
     public class StartUp
     {
         static void Main()
         {
-            Cat parrentCat1 = new Cat() { Breed = "British Shorthair", Name = "Fluffy", Age = 9, };
-            Cat parrentCat2 = new Cat() { Breed = "Unknown", Name = "Spotty", Age = 7, };
+            Cat parrentCat1 = new Cat() { Breed = "British Shorthair", Name = "Fluffy", Age = 9 };
+            Cat parrentCat2 = new Cat() { Breed = "Unknown", Name = "Spotty", Age = 7 };
             Cat cat = new() { Breed = "British Shorthair", Name = "Toby", Age = 3, Parrents = new() { parrentCat1, parrentCat2 } };
 
             Dictionary<string, int> courses = new()

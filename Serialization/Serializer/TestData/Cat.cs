@@ -1,4 +1,4 @@
-﻿namespace Serializer
+﻿namespace Serializer.TestData
 {
     public class Cat
     {
