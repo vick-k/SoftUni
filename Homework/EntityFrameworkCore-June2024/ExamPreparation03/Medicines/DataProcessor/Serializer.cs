@@ -24,16 +24,15 @@
                     Gender = p.Gender.ToString().ToLower(),
                     Medicines = p.PatientsMedicines
                     .Where(pm => pm.Medicine.ProductionDate >= givenDate)
-                    .Select(pm => pm.Medicine)
-                    .OrderByDescending(m => m.ExpiryDate)
-                    .ThenBy(m => m.Price)
-                    .Select(m => new ExportPatientMedicineDto()
+                    .OrderByDescending(pm => pm.Medicine.ExpiryDate)
+                    .ThenBy(pm => pm.Medicine.Price)
+                    .Select(pm => new ExportPatientMedicineDto()
                     {
-                        Category = m.Category.ToString().ToLower(),
-                        Name = m.Name,
-                        Price = m.Price.ToString("F2"),
-                        Producer = m.Producer,
-                        BestBefore = m.ExpiryDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
+                        Category = pm.Medicine.Category.ToString().ToLower(),
+                        Name = pm.Medicine.Name,
+                        Price = pm.Medicine.Price.ToString("F2"),
+                        Producer = pm.Medicine.Producer,
+                        BestBefore = pm.Medicine.ExpiryDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
                     })
                     .ToArray()
                 })
