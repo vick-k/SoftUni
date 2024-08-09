@@ -1,0 +1,7 @@
+.nav-menu {
+    list-style: square;
+}
+
+.nav-menu a:hover {
+    color: red;
+}

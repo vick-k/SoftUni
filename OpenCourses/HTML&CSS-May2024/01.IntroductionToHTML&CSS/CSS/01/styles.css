@@ -1,0 +1,31 @@
+h1 {
+    color: cadetblue;
+}
+
+p {
+    font-size: large
+}
+
+ul {
+    color: coral;
+}
+
+li {
+    list-style-type: circle;
+}
+
+div {
+    background-color: antiquewhite;
+}
+
+.highlight {
+    background-color: cornflowerblue;
+}
+
+#main-title {
+    color: brown;
+}
+
+#special-paragraph {
+    font-style: italic;
+}

@@ -1,0 +1,16 @@
+.post-title {
+    font-size: 180%;
+    font-weight: bolder;
+}
+
+.post-info {
+    color: darkgray;
+}
+
+.post-info time {
+    font-style: italic;
+}
+
+.author {
+    font-weight: bold;
+}

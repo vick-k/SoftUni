@@ -1,0 +1,27 @@
+section p {
+    color: darkolivegreen
+}
+
+.main-list > li {
+    font-weight: bold;
+}
+
+article.highlight + article {
+    background-color: lightcoral;
+}
+
+h2.trigger ~ p {
+    color: royalblue;
+}
+
+li.special + li a {
+    color: green;
+}
+
+ul {
+    list-style: none;
+}
+
+.special {
+    color: orange;
+}
