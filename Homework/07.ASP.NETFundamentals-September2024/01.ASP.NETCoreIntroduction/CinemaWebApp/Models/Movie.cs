@@ -18,10 +18,11 @@ namespace CinemaWebApp.Models
         [MaxLength(80)]
         public string Director { get; set; } = null!;
 
-        [Range(1, 600)]
         public int Duration { get; set; }
 
         [MaxLength(600)]
         public string Description { get; set; } = null!;
+
+        public ICollection<CinemaMovie> CinemaMovies { get; set; } = new List<CinemaMovie>();
     }
 }
