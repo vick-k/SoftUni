@@ -23,6 +23,8 @@ namespace CinemaWebApp.Models
         [MaxLength(600)]
         public string Description { get; set; } = null!;
 
+        public bool IsDeleted { get; set; }
+
         public ICollection<CinemaMovie> CinemaMovies { get; set; } = new List<CinemaMovie>();
     }
 }

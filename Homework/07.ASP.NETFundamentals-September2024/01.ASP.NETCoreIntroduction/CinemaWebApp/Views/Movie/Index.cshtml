@@ -31,10 +31,21 @@
 				<td>
 					<a asp-action="Details" asp-route-movieId="@movie.Id" class="btn btn-info">Details</a>
 					<a asp-action="AddToProgram" asp-route-movieId="@movie.Id" class="btn btn-primary">Add to Program</a>
+					<a href="#" onclick="submitDeleteForm(@movie.Id)" class="btn btn-danger">Remove</a>
+					<form id="deleteForm" asp-action="Remove" method="post" style="display:none">
+						<input type="hidden" name="movieId" value="" />
+						@Html.AntiForgeryToken()
+					</form>
 				</td>
 			</tr>
 		}
 	</tbody>
 </table>
 
-
+<script>
+	function submitDeleteForm(movieId) {
+		var form = document.getElementById('deleteForm');
+		form.querySelector('input[name="movieId"]').value = movieId;
+		form.submit();
+	}
+</script>

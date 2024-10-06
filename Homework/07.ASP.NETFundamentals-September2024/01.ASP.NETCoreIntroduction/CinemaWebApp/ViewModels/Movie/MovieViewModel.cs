@@ -32,5 +32,7 @@ namespace CinemaWebApp.ViewModels.Movie
         [Required(ErrorMessage = "Description is required.")]
         [StringLength(600, ErrorMessage = "Description cannot be longer than 600 characters.")]
         public string Description { get; set; } = null!;
+
+        public bool IsDeleted { get; set; }
     }
 }
