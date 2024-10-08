@@ -10,7 +10,7 @@ namespace CinemaWebApp.Controllers
 	public class CinemaController(AppDbContext context) : Controller
 	{
 		[HttpGet]
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index(string? locationFilter)
 		{
 			List<Cinema> cinemas = await context.Cinemas.ToListAsync();
 
@@ -22,6 +22,21 @@ namespace CinemaWebApp.Controllers
 					Name = c.Name,
 					Location = c.Location
 				});
+
+			if (!string.IsNullOrEmpty(locationFilter))
+			{
+				cinemaIndexViewModels = cinemaIndexViewModels
+					.Where(c => c.Location == locationFilter);
+			}
+
+			var allLocations = await context.Cinemas
+				.Where(c => c.IsDeleted == false)
+				.Select(c => c.Location)
+				.Distinct()
+				.ToListAsync();
+
+			ViewBag.AllLocations = allLocations;
+			ViewBag.SelectedLocation = locationFilter;
 
 			return View(cinemaIndexViewModels);
 		}

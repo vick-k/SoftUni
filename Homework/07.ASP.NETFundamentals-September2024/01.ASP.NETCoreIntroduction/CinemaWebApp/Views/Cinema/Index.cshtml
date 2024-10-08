@@ -2,26 +2,49 @@
 @model IEnumerable<CinemaIndexViewModel>
 
 @{
-    ViewData["Title"] = "Cinemas";
+	ViewData["Title"] = "Cinemas";
 }
 
 <h2>Cinemas</h2>
 
-<a asp-action="Create" class="btn btn-success mb-4">Add New Cinema</a>
+<div class="row">
+	<div class="col-auto me-auto">
+		<a asp-action="Create" class="btn btn-success mb-4 col-md-auto">Add New Cinema</a>
+	</div>
+	<div class="btn-group dropend mb-4 col-auto">
+		<button class="btn btn-secondary dropdown-toggle shadow-none" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="0,10">
+			Filter
+		</button>
+		<ul class="dropdown-menu">
+			<li>
+				<a class="dropdown-item @(ViewBag.SelectedLocation == null ? "active" : "")" asp-action="Index">All</a>
+			</li>
+			<li>
+				<hr class="dropdown-divider">
+			</li>
+			@foreach (var location in ViewBag.AllLocations)
+			{
+				<li>
+					<a class="dropdown-item @(ViewBag.SelectedLocation == location ? "active" : "")" asp-action="Index" asp-route-locationFilter="@location">@location</a>
+				</li>
+			}
+		</ul>
+	</div>
+</div>
 
 <div class="row">
-    @foreach (var cinema in Model)
-    {
-        <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <img src="~/images/cinema-image.jpg" class="card-img-top" alt="Cinema Image" style="height: 200px; object-fit: cover;">
-                <div class="card-body">
-                    <h5 class="card-title">@cinema.Name</h5>
-                    <p class="card-text">@cinema.Location</p>
-                    <a asp-action="Details" asp-route-id="@cinema.Id" class="btn btn-primary">View Movie Program</a>
-                    <a asp-action="Remove" asp-route-id="@cinema.Id" class="btn btn-danger float-end">Remove</a>
-                </div>
-            </div>
-        </div>
-    }
+	@foreach (var cinema in Model)
+	{
+		<div class="col-md-4">
+			<div class="card mb-4 shadow-sm">
+				<img src="~/images/cinema-image.jpg" class="card-img-top" alt="Cinema Image" style="height: 200px; object-fit: cover;">
+				<div class="card-body">
+					<h5 class="card-title">@cinema.Name</h5>
+					<p class="card-text">@cinema.Location</p>
+					<a asp-action="Details" asp-route-id="@cinema.Id" class="btn btn-primary">View Movie Program</a>
+					<a asp-action="Remove" asp-route-id="@cinema.Id" class="btn btn-danger float-end">Remove</a>
+				</div>
+			</div>
+		</div>
+	}
 </div>
