@@ -29,12 +29,13 @@
 				<td>@movie.ReleaseDate.ToString("MMMM yyyy", CultureInfo.InvariantCulture)</td>
 				<td>@movie.Duration minutes</td>
 				<td>
-					<a asp-action="Details" asp-route-movieId="@movie.Id" class="btn btn-info">Details</a>
-					<a asp-action="AddToProgram" asp-route-movieId="@movie.Id" class="btn btn-primary">Add to Program</a>
-					<a href="#" onclick="submitDeleteForm(@movie.Id)" class="btn btn-danger">Remove</a>
+					<a asp-action="Details" asp-route-movieId="@movie.Id" class="btn btn-info mt-1 mb-1">Details</a>
+					<a asp-action="AddToProgram" asp-route-movieId="@movie.Id" class="btn btn-primary mt-1 mb-1">Add to Program</a>
+					<a href="#" onclick="submitDeleteForm(@movie.Id)" class="btn btn-danger mt-1 mb-1">Remove</a>
 					<form id="deleteForm" asp-action="Remove" method="post" style="display:none">
-						<input type="hidden" name="movieId" value="" />
 						@Html.AntiForgeryToken()
+
+						<input type="hidden" name="movieId" value="" />
 					</form>
 				</td>
 			</tr>

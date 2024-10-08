@@ -8,6 +8,8 @@
 <h2>Add a New Movie</h2>
 
 <form asp-action="Create" class="row g-3 w-50" method="post">
+	@Html.AntiForgeryToken()
+
 	<div class="col-md-8">
 		<label for="Title" class="fw-bold">Title</label>
 		<input asp-for="Title" class="form-control" />
@@ -39,8 +41,8 @@
 		<span asp-validation-for="Description" class="text-danger fst-italic"></span>
 	</div>
 	<div class="col-12">
-		<button type="submit" class="btn btn-primary mt-2 mb-3">Create Movie</button>
+		<button type="submit" class="btn btn-primary mt-2 mb-2">Create Movie</button>
 	</div>
 </form>
 
-<a asp-action="Index">Back to Movies List</a>
+<a asp-action="Index" class="btn btn-secondary">Back to Movies List</a>

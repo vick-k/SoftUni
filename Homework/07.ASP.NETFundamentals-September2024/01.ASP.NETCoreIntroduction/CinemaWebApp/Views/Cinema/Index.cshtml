@@ -19,6 +19,7 @@
                     <h5 class="card-title">@cinema.Name</h5>
                     <p class="card-text">@cinema.Location</p>
                     <a asp-action="Details" asp-route-id="@cinema.Id" class="btn btn-primary">View Movie Program</a>
+                    <a asp-action="Remove" asp-route-id="@cinema.Id" class="btn btn-danger float-end">Remove</a>
                 </div>
             </div>
         </div>

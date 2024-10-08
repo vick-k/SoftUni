@@ -1,0 +1,29 @@
+﻿@using CinemaWebApp.ViewModels.Cinema;
+@model CinemaIndexViewModel
+
+@{
+	ViewData["Title"] = "Remove Cinema";
+}
+
+<h2>Are you sure you want to remove the following cinema?</h2>
+
+<div class="row">
+	<div class="col-md-4">
+		<div class="card mt-3 mb-4 shadow-sm">
+			<img src="~/images/cinema-image.jpg" class="card-img-top" alt="Cinema Image" style="height: 200px; object-fit: cover;">
+			<div class="card-body">
+				<h5 class="card-title">@Model.Name</h5>
+				<p class="card-text">@Model.Location</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<form asp-action="Remove" method="post">
+	@Html.AntiForgeryToken()
+
+	<input type="hidden" asp-for="Id" />
+	<button type="submit" class="btn btn-danger mb-2">Yes, Remove it</button>
+</form>
+
+<a asp-action="Index" class="btn btn-secondary">Back to Cinemas List</a>

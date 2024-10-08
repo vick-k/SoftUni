@@ -35,6 +35,7 @@ namespace CinemaWebApp.Controllers
 		}
 
 		[HttpPost]
+		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Create(MovieViewModel viewModel)
 		{
 			if (!ModelState.IsValid)
@@ -125,6 +126,7 @@ namespace CinemaWebApp.Controllers
 				MovieId = movie.Id,
 				MovieTitle = movie.Title,
 				Cinemas = cinemas
+					.Where(c => c.IsDeleted == false)
 					.Select(c => new CinemaCheckBoxItem()
 					{
 						Id = c.Id,
@@ -139,6 +141,7 @@ namespace CinemaWebApp.Controllers
 		}
 
 		[HttpPost]
+		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> AddToProgram(AddMovieToCinemaProgramViewModel model)
 		{
 			if (!ModelState.IsValid)

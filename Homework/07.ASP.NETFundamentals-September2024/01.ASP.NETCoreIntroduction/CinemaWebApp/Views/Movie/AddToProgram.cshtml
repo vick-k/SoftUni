@@ -8,6 +8,8 @@
 <h2>Add "@Model.MovieTitle" to Cinema Program</h2>
 
 <form asp-action="AddToProgram" method="post">
+    @Html.AntiForgeryToken()
+
     <input type="hidden" asp-for="MovieId" />
     <input type="hidden" asp-for="MovieTitle" />
 
@@ -30,4 +32,4 @@
     <button type="submit" class="btn btn-primary mt-3">Confirm</button>
 </form>
 
-<a asp-action="Index" class="btn btn-secondary mt-2">Back to Movies</a>
+<a asp-action="Index" class="btn btn-secondary mt-2">Back to Movies List</a>
