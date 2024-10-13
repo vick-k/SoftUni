@@ -51,6 +51,7 @@ namespace CinemaWebApp.Controllers
 				Director = viewModel.Director,
 				Duration = viewModel.Duration,
 				Description = viewModel.Description,
+				ImageUrl = viewModel.ImageUrl,
 				IsDeleted = false
 			};
 

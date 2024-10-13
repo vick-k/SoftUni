@@ -7,7 +7,7 @@
 
 <h2>Add a New Movie</h2>
 
-<form asp-action="Create" class="row g-3 w-50" method="post">
+<form asp-action="Create" class="row g-3 w-50 mt-3" method="post">
 	@Html.AntiForgeryToken()
 
 	<div class="col-md-8">
@@ -40,8 +40,13 @@
 		<textarea asp-for="Description" class="form-control"></textarea>
 		<span asp-validation-for="Description" class="text-danger fst-italic"></span>
 	</div>
+	<div>
+		<label for="ImageUrl" class="fw-bold">Image URL</label>
+		<input asp-for="ImageUrl" class="form-control" placeholder="Enter Image URL" />
+		<span asp-validation-for="ImageUrl" class="text-danger fst-italic"></span>
+	</div>
 	<div class="col-12">
-		<button type="submit" class="btn btn-primary mt-2 mb-2">Create Movie</button>
+		<button type="submit" class="btn btn-primary mt-2 mb-2">Add Movie</button>
 	</div>
 </form>
 
