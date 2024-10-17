@@ -128,7 +128,6 @@ namespace GameZone.Controllers
             var userId = userManager.GetUserId(User);
 
             var gamerGame = await context.GamersGames
-                .AsNoTracking()
                 .FirstOrDefaultAsync(gg => gg.GamerId == userId && gg.GameId == id);
 
             if (gamerGame == null)
@@ -234,7 +233,6 @@ namespace GameZone.Controllers
             string userId = userManager.GetUserId(User);
 
             var gamerGame = await context.GamersGames
-                .AsNoTracking()
                 .FirstOrDefaultAsync(gg => gg.GamerId == userId && gg.GameId == id);
 
             if (gamerGame != null)
@@ -306,7 +304,6 @@ namespace GameZone.Controllers
             }
 
             var gamerGames = await context.GamersGames
-                .AsNoTracking()
                 .Where(gg => gg.GameId == id)
                 .ToListAsync();
 
