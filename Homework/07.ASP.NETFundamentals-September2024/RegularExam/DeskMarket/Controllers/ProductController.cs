@@ -19,7 +19,7 @@ namespace DeskMarket.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            string userId = userManager.GetUserId(User);
+            string? userId = userManager.GetUserId(User);
 
             List<Product> products = await context.Products
                 .AsNoTracking()
@@ -34,7 +34,7 @@ namespace DeskMarket.Controllers
                     ImageUrl = p.ImageUrl,
                     ProductName = p.ProductName,
                     Price = p.Price,
-                    Seller = p.Seller.UserName,
+                    Seller = p.Seller.UserName!,
                     IsSeller = userId == p.SellerId ? true : false,
                     HasBought = context.ProductsClients
                         .Where(pc => pc.ClientId == userId && pc.ProductId == p.Id)
@@ -120,7 +120,7 @@ namespace DeskMarket.Controllers
 
             var viewModel = await context.Products
                 .AsNoTracking()
-                .Where(p => p.Id == id)
+                .Where(p => p.Id == id && p.IsDeleted == false)
                 .Select(p => new ProductDetailsViewModel()
                 {
                     Id = p.Id,
@@ -160,7 +160,8 @@ namespace DeskMarket.Controllers
                 .ToListAsync();
 
             var product = await context.Products
-                .FindAsync(id);
+                .Where(p => p.IsDeleted == false)
+                .FirstOrDefaultAsync(p => p.Id == id);
 
             if (product == null)
             {
@@ -191,7 +192,8 @@ namespace DeskMarket.Controllers
         public async Task<IActionResult> Edit(int id, ProductAddViewModel viewModel)
         {
             var product = await context.Products
-                .FindAsync(id);
+                .Where(p => p.IsDeleted == false)
+                .FirstOrDefaultAsync(p => p.Id == id);
 
             if (product == null)
             {
@@ -210,7 +212,7 @@ namespace DeskMarket.Controllers
             if (!DateTime.TryParseExact(dateString, ProductDateTimeFormat, CultureInfo.InvariantCulture,
                 DateTimeStyles.None, out DateTime parseDate))
             {
-                ModelState.AddModelError("DateAndTime", $"Invalid date format. Please use: {ProductDateTimeFormat}");
+                ModelState.AddModelError("AddedOn", $"Invalid date format. Please use: {ProductDateTimeFormat}");
 
                 var categories = await context.Categories
                     .AsNoTracking()
@@ -230,7 +232,7 @@ namespace DeskMarket.Controllers
             product.Description = viewModel.Description;
             product.Price = viewModel.Price;
             product.ImageUrl = viewModel.ImageUrl;
-            product.SellerId = viewModel.SellerId;
+            product.SellerId = viewModel.SellerId!;
             product.AddedOn = parseDate;
             product.CategoryId = viewModel.CategoryId;
 
@@ -243,6 +245,14 @@ namespace DeskMarket.Controllers
         public async Task<IActionResult> AddToCart(int id)
         {
             var userId = userManager.GetUserId(User)!;
+
+            var product = await context.Products
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            if (product == null || product.IsDeleted == true)
+            {
+                return BadRequest();
+            }
 
             var productsClient = await context.ProductsClients
                 .FirstOrDefaultAsync(pc => pc.ClientId == userId && pc.ProductId == id);
@@ -271,6 +281,7 @@ namespace DeskMarket.Controllers
                 .AsNoTracking()
                 .Where(pc => pc.ClientId == userId)
                 .Include(pc => pc.Product)
+                .Where(pc => pc.Product.IsDeleted == false)
                 .Select(pc => new ProductCartViewModel()
                 {
                     Id = pc.ProductId,
@@ -305,7 +316,7 @@ namespace DeskMarket.Controllers
         {
             var viewModel = await context.Products
                 .AsNoTracking()
-                .Where(p => p.Id == id)
+                .Where(p => p.Id == id && p.IsDeleted == false)
                 .Select(p => new ProductDeleteViewModel()
                 {
                     Id = p.Id,
@@ -334,11 +345,6 @@ namespace DeskMarket.Controllers
                 return BadRequest();
             }
 
-            //var clientProducts = await context.ProductsClients
-            //    .Where(pc => pc.ProductId == id)
-            //    .ToListAsync();
-
-            //context.ProductsClients.RemoveRange(clientProducts);
             product.IsDeleted = true;
             await context.SaveChangesAsync();
 
